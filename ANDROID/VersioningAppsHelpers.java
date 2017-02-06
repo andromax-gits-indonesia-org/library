@@ -83,5 +83,5 @@ public class VersioningAppsHelpers {
     public String versionModel(){
         return Build.MODEL;
     }
-    
+
 }

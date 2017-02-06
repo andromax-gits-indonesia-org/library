@@ -2,9 +2,12 @@ package id.gits.gitsstringhelper;
 
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
@@ -12,7 +15,6 @@ import java.util.Locale;
  */
 
 public class DateHelper {
-
 
     public static final String DATE_INPUT_v1 = "yyyy-MM-dd";
     public static final String DATE_INPUT_v2 = "yyyy-MM-dd HH:mm:ss";
@@ -87,4 +89,73 @@ public class DateHelper {
         }
     }
 
+
+    /*
+     * @return WeekOfMonth
+    */
+    public static int getWeekOfMonth() {
+        Calendar calendar = Calendar.getInstance();
+        int week = calendar.get(Calendar.WEEK_OF_MONTH);
+        return week - 1;
+    }
+
+
+    /*
+    * @return DayOfWeek
+    */
+    public static int getDayOfWeek() {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        if (day == 1) {
+            day = 7;
+        } else {
+            day = day - 1;
+        }
+        return day;
+    }
+
+    public static int getYear() {
+        Calendar calendar = GregorianCalendar.getInstance();
+        return calendar.get(Calendar.YEAR);
+    }
+
+
+    public static int getMonth() {
+        Calendar calendar = GregorianCalendar.getInstance();
+        return calendar.get(Calendar.MONTH);
+    }
+
+    public static int getDay() {
+        Calendar calendar = GregorianCalendar.getInstance();
+        return calendar.get(Calendar.DATE);
+    }
+
+
+    public static int compareDate(String date1, String date2, String format) {
+        DateFormat df = new SimpleDateFormat(format, Locale.getDefault());
+        try {
+            Date dt1 = df.parse(date1);
+            Date dt2 = df.parse(date2);
+            if (dt1.getTime() > dt2.getTime()) {
+                return 1;
+            } else if (dt1.getTime() < dt2.getTime()) {
+                return -1;
+            } else {
+                return 0;
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    @Deprecated
+    public static String millisecond2String(Object millisecond, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.getDefault());
+        return simpleDateFormat.format(millisecond);
+    }
+
 }
+
+
