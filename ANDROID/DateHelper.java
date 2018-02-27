@@ -113,6 +113,18 @@ public class DateHelper {
         }
         return day;
     }
+    
+    public static int getAge(int year, int month, int day) {
+         Calendar dob = Calendar.getInstance();
+         Calendar today = Calendar.getInstance();
+         dob.set(year, month, day);
+         int age = today.get(1) - dob.get(1);
+         if(today.get(6) < dob.get(6)) {
+            --age;
+         }
+
+         return age;
+    }
 
     public static int getYear() {
         Calendar calendar = GregorianCalendar.getInstance();
